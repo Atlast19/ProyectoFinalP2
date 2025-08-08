@@ -19,5 +19,10 @@ namespace Aplicacion.Service
         {
             return _repository.GetReservas().Where(e => e.Estado == true);
         }
+
+        public void SetReservas(Reservas model) 
+        {
+            _repository.SetReservas(model);
+        }
     }
 }

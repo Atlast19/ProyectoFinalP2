@@ -10,7 +10,7 @@ namespace Presentacion.Controllers
 
     public class ReservasController : Controller
     {
-       private readonly  ReservasService _service;
+        private readonly ReservasService _service;
 
         public ReservasController(ReservasService service)
         {
@@ -18,9 +18,15 @@ namespace Presentacion.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Reservas> GetReservas() 
+        public IEnumerable<Reservas> GetReservas()
         {
             return _service.GetReservas();
+        }
+
+        [HttpPost]
+        public void SetReservas(Reservas model) 
+        {
+            _service.SetReservas(model);
         }
     }
 }

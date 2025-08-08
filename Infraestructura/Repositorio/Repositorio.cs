@@ -22,5 +22,11 @@ namespace Infraestructura.Repositorio
         {
             return _dbSet.ToList();
         }
+
+        public void SetReservas(T model)
+        {
+            _dbSet.Add(model);
+            _contexto.SaveChanges();
+        }
     }
 }
