@@ -12,7 +12,7 @@ namespace Dominio.Entidates
         public string NameUser { get; set; }
         public string PasswordUser { get; set; }
         public string MatriculaUser { get; set; }
-        public DateTime AgeUser { get; set; }
+        public string AgeUser { get; set; }
         public string EmailUser { get; set; }
     }
 }
