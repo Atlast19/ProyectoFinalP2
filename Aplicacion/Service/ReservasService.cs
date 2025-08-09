@@ -17,12 +17,28 @@ namespace Aplicacion.Service
 
         public IEnumerable<Reservas> GetReservas() 
         {
-            return _repository.GetReservas().Where(e => e.Estado == true);
+            return _repository.GetAllRegistros().Where(e => e.Estado == true);
         }
 
-        public void SetReservas(Reservas model) 
+        public Reservas GetReservasByID(int ID) 
         {
-            _repository.SetReservas(model);
+            return _repository.GetRegistrosByID(ID);
         }
+
+        public void PostReservas(Reservas model) 
+        {
+            _repository.PostRegistros(model);
+        }
+
+        public void DeleteReservaById(int ID) 
+        {
+            _repository.DeleteById(ID);
+        }
+
+        public void PutReservas(Reservas model) 
+        {
+            _repository.PutRegistros(model);
+        }
+
     }
 }

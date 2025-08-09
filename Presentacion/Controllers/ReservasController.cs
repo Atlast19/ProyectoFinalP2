@@ -17,16 +17,37 @@ namespace Presentacion.Controllers
             _service = service;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public IEnumerable<Reservas> GetReservas()
         {
             return _service.GetReservas();
         }
 
+        [HttpGet("GetByID")]
+
+        public Reservas GetReservasByID(int ID) 
+        {
+            return _service.GetReservasByID(ID);
+        }
+
         [HttpPost]
         public void SetReservas(Reservas model) 
         {
-            _service.SetReservas(model);
+            _service.PostReservas(model);
         }
+
+        [HttpDelete]
+        public void DeleteReservasByID(int ID) 
+        {
+            _service.DeleteReservaById(ID);
+        }
+
+        [HttpPut]
+        public void PutReservas(Reservas model) 
+        {
+            _service.PutReservas(model);
+        }
+
+
     }
 }
