@@ -1,4 +1,5 @@
-﻿using Aplicacion.Service;
+﻿using Aplicacion.DTOs;
+using Aplicacion.Service;
 using Dominio.Entidates;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,29 +18,29 @@ namespace Presentacion.Controllers
         }
 
         [HttpGet("GetAll")]
-        public IEnumerable<Usuarios> GetAllUsuarios() 
+        public IEnumerable<UsuarioDTO> GetAllUsuarios() 
         {
-            return _service.GetAllUsuarios().ToList();
+            return _service.GetAllRegistros().ToList() ;
         }
         [HttpGet("GetById")]
-        public Usuarios GetUsuarioByID(int ID) 
+        public UsuarioDTO GetUsuarioByID(int ID) 
         {
-            return _service.GetUsuariosByID(ID);
+            return _service.GetRegistrosByID(ID);
         }
         [HttpPost]
-        public void PostUsuarios(Usuarios model) 
+        public void PostUsuarios(UsuarioDTO model) 
         {
-            _service.PostUsuarios(model);
+            _service.PostRegistros(model);
         }
         [HttpPut]
-        public void PutUsuarios(Usuarios model) 
+        public void PutUsuarios(UsuarioDTO model) 
         {
-            _service.PutUsuarios(model);
+            _service.PutRegistros(model);
         }
         [HttpDelete]
         public void DeleteUsuarioByID(int ID) 
         {
-            _service.DeleteUsuariosById(ID);
+            _service.DeleteById(ID);
         }
 
 

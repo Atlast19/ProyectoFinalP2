@@ -14,6 +14,8 @@ namespace Dominio.Entidates
         public string HorasInicioCurso { get; set; }
         public string HoraFinalCurso { get; set; }
         public int EspaciosDisponibles { get; set; }
+        public DateOnly FechaFin { get; set; }
+        public TimeOnly HoraFin { get; set; }
         public bool Estado { get; set; }
 
     }

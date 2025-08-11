@@ -1,6 +1,7 @@
 
 using Aplicacion.Interface;
 using Aplicacion.Service;
+using AutoMapper;
 using Infraestructura.Persistencia.Contexto;
 using Infraestructura.Repositorio;
 
@@ -19,6 +20,8 @@ namespace Presentacion
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+           
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repositorio<>));
             builder.Services.AddScoped<ReservasService>();
             builder.Services.AddScoped<UsuarioService>();
