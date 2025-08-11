@@ -21,7 +21,8 @@ namespace Presentacion
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-           
+            
+
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repositorio<>));
             builder.Services.AddScoped<ReservasService>();
             builder.Services.AddScoped<UsuarioService>();

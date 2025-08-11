@@ -9,8 +9,20 @@ namespace Infraestructura.AutoMapper
     {
         public AutoMapper()
         {
+            #region Mapeo de Usuarios
             CreateMap<UsuarioDTO, Usuarios>();
+            CreateMap<Usuarios, UsuarioDTO>();
+            #endregion
 
+            #region Mapeo de Reservas
+            CreateMap<Reservas, ReservasDTO>();
+            CreateMap<ReservasDTO, Reservas>();
+            #endregion
+
+            #region Mapeo de Inscripciones
+            CreateMap<Inscripciones, InscripcionesDTO>();
+            CreateMap<InscripcionesDTO, Inscripciones>();
+            #endregion
         }
     }
 }
