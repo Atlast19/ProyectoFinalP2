@@ -2,8 +2,9 @@
 
 namespace Aplicacion.DTOs
 {
-    public class InscripcionesDTO
+    public sealed class InscripcionesDTO
     {
+        public int IDInscripcion { get; set; }
         public int IDCurso { get; set; }
         public int IDUser { get; set; }
     }

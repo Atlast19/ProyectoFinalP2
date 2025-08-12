@@ -1,7 +1,4 @@
-﻿
-
-using Aplicacion.Interface;
-using Dominio.Entidates;
+﻿using Aplicacion.Interface;
 using Infraestructura.Persistencia.Contexto;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,15 +17,14 @@ namespace Infraestructura.Repositorio
 
         public void DeleteById(int ID)
         {
-            var Code = GetRegistrosByID(ID);
-            _dbSet.Remove(Code);
-            _contexto.SaveChanges();
-
+                var Code = GetRegistrosByID(ID);
+                _dbSet.Remove(Code);
+                _contexto.SaveChanges();
         }
 
         public IEnumerable<T> GetAllRegistros()
         {
-            return _dbSet.ToList();
+                return _dbSet.ToList();
         }
 
         public T GetRegistrosByID(int ID)
@@ -38,8 +34,8 @@ namespace Infraestructura.Repositorio
 
         public void PostRegistros(T model)
         {
-            _dbSet.Add(model);
-            _contexto.SaveChanges();
+                _dbSet.Add(model);
+                _contexto.SaveChanges();
         }
 
         public void PutRegistros(T model)

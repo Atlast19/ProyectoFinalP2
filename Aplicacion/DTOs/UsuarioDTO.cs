@@ -2,8 +2,9 @@
 
 namespace Aplicacion.DTOs
 {
-    public class UsuarioDTO
+    public sealed class UsuarioDTO
     {
+        public int IDUser { get; set; }
         public string NameUser { get; set; }
         public string PasswordUser { get; set; }
         public string MatriculaUser { get; set; }

@@ -18,9 +18,17 @@ namespace Presentacion.Controllers
         }
 
         [HttpGet("GetAll")]
-        public IEnumerable<UsuarioDTO> GetAllUsuarios() 
+        public IActionResult GetAllUsuarios() 
         {
-            return _service.GetAllRegistros().ToList() ;
+            try
+            {
+                var list = _service.GetAllRegistros().ToList();
+                return Ok(list);
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest(new {Error = "Error Al cargar los datos!"});
+            }
         }
         [HttpGet("GetById")]
         public UsuarioDTO GetUsuarioByID(int ID) 
@@ -28,19 +36,43 @@ namespace Presentacion.Controllers
             return _service.GetRegistrosByID(ID);
         }
         [HttpPost]
-        public void PostUsuarios(UsuarioDTO model) 
+        public IActionResult PostUsuarios([FromBody]UsuarioDTO model) 
         {
-            _service.PostRegistros(model);
+            try
+            {
+                _service.PostRegistros(model);
+                return Ok();
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest(new { Error = "Los datos ingresados no son correctos!"});
+            }
         }
         [HttpPut]
-        public void PutUsuarios(UsuarioDTO model) 
+        public IActionResult PutUsuarios([FromBody]UsuarioDTO model) 
         {
-            _service.PutRegistros(model);
+            try
+            {
+                _service.PutRegistros(model);
+                return Ok();
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest(new {Error = "Datos Incorrectos en la Actualizacion!"});
+            }
         }
         [HttpDelete]
-        public void DeleteUsuarioByID(int ID) 
+        public IActionResult DeleteUsuarioByID(int ID) 
         {
-            _service.DeleteById(ID);
+            try
+            {
+                _service.DeleteById(ID);
+                return Ok();
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest(new { Error = "El codigo ingresado no es correcto!"});
+            }
         }
 
 

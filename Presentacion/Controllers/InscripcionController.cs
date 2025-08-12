@@ -17,30 +17,64 @@ namespace Presentacion.Controllers
         }
 
         [HttpGet("GetAll")]
-        public IEnumerable<InscripcionesDTO> GetReservas()
+        public IActionResult GetInscripciones()
         {
-            return _service.GetAllRegistros();
+            try
+            {
+                var registros =_service.GetAllRegistros();
+                return Ok(registros);
+            }
+            catch (Exception ex)
+            {
+                // Aquí llega la excepción del repositorio
+                return BadRequest(new { Error = "Error Al cargar los datos!"});
+            }
         }
 
         [HttpGet("GetByID")]
-        public InscripcionesDTO GetReservasByID(int ID)
+        public InscripcionesDTO GetInscripcionesByID(int ID)
         {
             return _service.GetRegistrosByID(ID);
         }
         [HttpPost]
-        public void SetReservas(InscripcionesDTO model)
+        public IActionResult PostInscripciones([FromBody]InscripcionesDTO model)
         {
-            _service.PostRegistros(model);
+            try
+            {
+                _service.PostRegistros(model);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest( new {Error = "Los datos ingresados no son correctos!"});
+            }
         }
         [HttpDelete]
-        public void DeleteReservasByID(int ID)
+        public IActionResult DeleteInscipcionesByID(int ID)
         {
-            _service.DeleteById(ID);
+            try
+            {
+                _service.DeleteById(ID);
+                return Ok();
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest(new { Error = "El codigo ingresado no es correcto!"});
+            }
+
         }
         [HttpPut]
-        public void PutReservas(InscripcionesDTO model)
+        public IActionResult PutInscripciones([FromBody] InscripcionesDTO model)
         {
-            _service.PutRegistros(model);
+            try
+            {
+                _service.PutRegistros(model);
+                return Ok();
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest(new { Error = "Datos Incorrectos en la Actualizacion!"});
+            }
         }
     }
 }

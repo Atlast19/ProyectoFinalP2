@@ -12,41 +12,69 @@ namespace Presentacion.Controllers
     public class ReservasController : Controller
     {
         private readonly ReservasService _service;
-
         public ReservasController(ReservasService service)
         {
             _service = service;
         }
 
         [HttpGet("GetAll")]
-        public IEnumerable<ReservasDTO> GetReservas()
+        public IActionResult GetReservas()
         {
-            return _service.GetAllRegistros();
+            try
+            {
+                var list = _service.GetAllRegistros().ToList().Where(x=> x.Estado == true);
+                return Ok(list);
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest(new {Error = "Error al Cargar los datos!"});
+            }
         }
 
         [HttpGet("GetByID")]
-
         public ReservasDTO GetReservasByID(int ID) 
         {
             return _service.GetRegistrosByID(ID);
         }
 
         [HttpPost]
-        public void SetReservas(ReservasDTO model) 
+        public IActionResult PostReservas([FromBody]ReservasDTO model) 
         {
-            _service.PostRegistros(model);
+            try
+            {
+                _service.PostRegistros(model);
+                return Ok();
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest(new { Error = "Los datos ingresados no son correctos!"});
+            }
         }
 
         [HttpDelete]
-        public void DeleteReservasByID(int ID) 
+        public IActionResult DeleteReservasByID(int ID) 
         {
-            _service.DeleteById(ID);
+            try
+            {
+                _service.DeleteById(ID);
+                return Ok();
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest(new {Error = "El codigo ingresado no es correcto!"});
+            }
         }
 
         [HttpPut]
-        public void PutReservas(ReservasDTO model) 
+        public IActionResult PutReservas([FromBody]ReservasDTO model) 
         {
-            _service.PutRegistros(model);
+            try {
+                _service.PutRegistros(model);
+                return Ok();
+            } catch (Exception ex) 
+            {
+                return BadRequest(new {Error = "Datos Incorrectos en la Actualizacion!"});
+            }
         }
 
 
