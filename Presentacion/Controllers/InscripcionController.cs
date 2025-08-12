@@ -1,54 +1,48 @@
 ﻿using Aplicacion.DTOs;
 using Aplicacion.Service;
-using Dominio.Entidates;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentacion.Controllers
 {
-    [Route("api/Reservas")]
+    [Route("api/Inscripcoines")]
     [Produces("application/json")]
     [ApiController]
-
-    public class ReservasController : Controller
+    public class InscripcionController : Controller
     {
-        private readonly ReservasService _service;
-
-        public ReservasController(ReservasService service)
+        private readonly InscripcionService _service;
+        
+        public InscripcionController(InscripcionService service)
         {
             _service = service;
         }
 
         [HttpGet("GetAll")]
-        public IEnumerable<ReservasDTO> GetReservas()
+        public IEnumerable<InscripcionesDTO> GetReservas()
         {
             return _service.GetAllRegistros();
         }
 
         [HttpGet("GetByID")]
-
-        public ReservasDTO GetReservasByID(int ID) 
+        public InscripcionesDTO GetReservasByID(int ID)
         {
             return _service.GetRegistrosByID(ID);
         }
-
         [HttpPost]
-        public void SetReservas(ReservasDTO model) 
+        public void SetReservas(InscripcionesDTO model)
         {
             _service.PostRegistros(model);
         }
-
         [HttpDelete]
-        public void DeleteReservasByID(int ID) 
+        public void DeleteReservasByID(int ID)
         {
             _service.DeleteById(ID);
         }
-
         [HttpPut]
-        public void PutReservas(ReservasDTO model) 
+        public void PutReservas(InscripcionesDTO model)
         {
             _service.PutRegistros(model);
         }
-
-
     }
 }
+
+

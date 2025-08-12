@@ -26,6 +26,7 @@ namespace Presentacion
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repositorio<>));
             builder.Services.AddScoped<ReservasService>();
             builder.Services.AddScoped<UsuarioService>();
+            builder.Services.AddScoped<InscripcionService>();
             builder.Services.AddSqlServer<Contexto>(builder.Configuration.GetConnectionString("StringConection"));
 
             var app = builder.Build();

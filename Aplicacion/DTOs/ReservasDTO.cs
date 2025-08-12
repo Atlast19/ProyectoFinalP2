@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace Aplicacion.DTOs
 {
-    internal class ReservasDTO
+    public class ReservasDTO
     {
+        public string NombreMaestro { get; set; }
+        public string NombreMateria { get; set; }
+        public string Turno { get; set; }
+        public string HorasInicioCurso { get; set; }
+        public string HoraFinalCurso { get; set; }
+        public int EspaciosDisponibles { get; set; }
+        public DateOnly FechaFin { get; set; }
+        public TimeOnly HoraFin { get; set; }
     }
 }
