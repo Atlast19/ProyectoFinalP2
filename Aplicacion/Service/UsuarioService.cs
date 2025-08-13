@@ -12,11 +12,14 @@ namespace Aplicacion.Service
     {
         private readonly IMapper _mapper;
         private readonly IRepository<Usuarios> _repository;
+        private readonly ICorreos _correos;
+        
 
-        public UsuarioService(IMapper mapper, IRepository<Usuarios> repository)
+        public UsuarioService(IMapper mapper, IRepository<Usuarios> repository, ICorreos correos)
         {
             _repository = repository;
             _mapper = mapper;
+            _correos = correos;
         }
 
         public void DeleteById(int ID)
@@ -40,7 +43,7 @@ namespace Aplicacion.Service
         {
             var modelo = _mapper.Map<Usuarios>(model);
             _repository.PostRegistros(modelo);
-
+            _correos.EnviarCorreo(model.EmailUser, "Se ha registrado en mi plataforma","Te registraste en mi pagina");
         }
 
         public void PutRegistros(UsuarioDTO model)

@@ -45,7 +45,7 @@ namespace Presentacion.Controllers
             }
             catch (Exception ex) 
             {
-                return BadRequest(new { Error = "Los datos ingresados no son correctos!"});
+                return BadRequest(new { Error = ex.Message});
             }
         }
         [HttpPut]
