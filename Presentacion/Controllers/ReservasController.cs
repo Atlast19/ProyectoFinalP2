@@ -27,7 +27,7 @@ namespace Presentacion.Controllers
             }
             catch (Exception ex) 
             {
-                return BadRequest(new {Error = "Error al Cargar los datos!"});
+                return BadRequest(new {Error = ex.Message});
             }
         }
 
@@ -47,7 +47,7 @@ namespace Presentacion.Controllers
             }
             catch (Exception ex) 
             {
-                return BadRequest(new { Error = "Los datos ingresados no son correctos!"});
+                return BadRequest(new { Error = ex.Message});
             }
         }
 
@@ -61,7 +61,7 @@ namespace Presentacion.Controllers
             }
             catch (Exception ex) 
             {
-                return BadRequest(new {Error = "El codigo ingresado no es correcto!"});
+                return BadRequest(new {Error = ex.Message});
             }
         }
 
@@ -73,7 +73,7 @@ namespace Presentacion.Controllers
                 return Ok();
             } catch (Exception ex) 
             {
-                return BadRequest(new {Error = "Datos Incorrectos en la Actualizacion!"});
+                return BadRequest(new {Error = ex.Message});
             }
         }
 
