@@ -1,5 +1,4 @@
-﻿
-using Aplicacion.DTOs;
+﻿using Aplicacion.DTOs;
 using Aplicacion.Interface;
 using Aplicacion.Service.Base;
 using AutoMapper;
@@ -11,7 +10,7 @@ namespace Aplicacion.Service
     public class ReservasService : IBaseService<ReservasDTO>
     {
         private readonly IMapper _mapper;
-        private readonly IRepository<Reservas> _repository;
+        private readonly IRepository<Reservas> _repository;  
 
         public ReservasService(IRepository<Reservas> repository, IMapper mapper)
         {
@@ -40,6 +39,7 @@ namespace Aplicacion.Service
         {
             var models = _mapper.Map<Reservas>(model);
             _repository.PostRegistros(models);
+            
         }
 
         public void PutRegistros(ReservasDTO model)

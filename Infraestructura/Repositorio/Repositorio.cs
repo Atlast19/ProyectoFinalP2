@@ -34,8 +34,9 @@ namespace Infraestructura.Repositorio
 
         public void PostRegistros(T model)
         {
-                _dbSet.Add(model);
-                _contexto.SaveChanges();
+            _dbSet.Add(model);
+            _contexto.SaveChanges();      
+
         }
 
         public void PutRegistros(T model)

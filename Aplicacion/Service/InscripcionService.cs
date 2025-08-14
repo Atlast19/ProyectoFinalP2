@@ -4,6 +4,7 @@ using Aplicacion.Interface;
 using Aplicacion.Service.Base;
 using AutoMapper;
 using Dominio.Entidates;
+using System.Diagnostics.Metrics;
 
 namespace Aplicacion.Service
 {
@@ -11,10 +12,12 @@ namespace Aplicacion.Service
     {
         private readonly IMapper _mapper;
         private readonly IRepository<Inscripciones> _repository;
-        public InscripcionService(IMapper mapper, IRepository<Inscripciones> repository)
+        private readonly IinscripcionRepositorio _inscripcionRepositorio;
+        public InscripcionService(IMapper mapper, IRepository<Inscripciones> repository, IinscripcionRepositorio iinscripcion)
         {
             _mapper = mapper;
             _repository = repository;
+            _inscripcionRepositorio = iinscripcion;
         }
         public void DeleteById(int ID)
         {
@@ -35,8 +38,9 @@ namespace Aplicacion.Service
 
         public void PostRegistros(InscripcionesDTO model)
         {
+
             var models = _mapper.Map<Inscripciones>(model);
-            _repository.PostRegistros(models);
+            _inscripcionRepositorio.EjecutarSPAgregarInscripcion(models);
         }
 
         public void PutRegistros(InscripcionesDTO model)

@@ -43,7 +43,7 @@ namespace Aplicacion.Service
         {
             var modelo = _mapper.Map<Usuarios>(model);
             _repository.PostRegistros(modelo);
-            _correos.EnviarCorreo(model.EmailUser, "Bienvenido/a CursosGenerales", $"Hola {model.NameUser} Ta has Registrado/a en nuestra plataforma web");
+            _correos.EnviarCorreo(model.EmailUser, "Bienvenido/a CursosGenerales", $"Hola {model.NameUser} Te has Registrado/a en nuestra plataforma web");
         }
 
         public void PutRegistros(UsuarioDTO model)
