@@ -13,11 +13,13 @@ namespace Aplicacion.Service
         private readonly IMapper _mapper;
         private readonly IRepository<Inscripciones> _repository;
         private readonly IinscripcionRepositorio _inscripcionRepositorio;
-        public InscripcionService(IMapper mapper, IRepository<Inscripciones> repository, IinscripcionRepositorio iinscripcion)
+        private readonly ICorreos _correos;
+        public InscripcionService(IMapper mapper, IRepository<Inscripciones> repository, IinscripcionRepositorio iinscripcion, ICorreos correos)
         {
             _mapper = mapper;
             _repository = repository;
             _inscripcionRepositorio = iinscripcion;
+            _correos = correos;
         }
         public void DeleteById(int ID)
         {
@@ -41,6 +43,7 @@ namespace Aplicacion.Service
 
             var models = _mapper.Map<Inscripciones>(model);
             _inscripcionRepositorio.EjecutarSPAgregarInscripcion(models);
+            _correos.EnviarCorreo(models.EmailUser, "Te agregaste a un curso en CursosGenerales", $"Estimado/a usuario usted se ha regustrado en el curso de codigo: {models.IDCurso}");
         }
 
         public void PutRegistros(InscripcionesDTO model)
