@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos Generales</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Panel del Administrador</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link active" href="admin.html">Usuarios</a></li>
+                <li class="nav-item"><a class="nav-link" href="cursos.html">Cursos</a></li>
+                <li class="nav-item"><a class="nav-link" href="inscripciones.html">Inscripciones</a></li>
+                <li class="nav-item"><a class="nav-link text-danger" href="index.html">Cerrar Sesión</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- CONTENIDO -->
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Gestión de Usuarios</h1>
+
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <table class="table table-bordered table-hover text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuario</th>
+                        <th>Edad</th>
+                        <th>Matrícula</th>
+                        <th>Email</th>
+                        <th>Contraseña</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaUsuarios">
+                    <!-- Datos desde API -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL EDITAR -->
+<div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEditarLabel">Actualizar Usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formEditar">
+          <input type="hidden" id="editIdUser">
+          <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" id="editNameUser" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Fecha de nacimiento</label>
+            <input type="date" id="editAgeUser" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Matrícula</label>
+            <input type="text" id="editMatriculaUser" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" id="editEmailUser" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Contraseña</label>
+            <input type="text" id="editPasswordUser" class="form-control" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    const apiGet = 'https://localhost:7261/api/Usuarios/GetAll';
+    const apiDelete = 'https://localhost:7261/api/Usuarios/Delete?id=';
+    const apiUpdate = 'https://localhost:7261/api/Usuarios/Update';
+    let modalEditar = new bootstrap.Modal(document.getElementById("modalEditar"));
+
+    function cargarUsuarios() {
+        fetch(apiGet)
+            .then(response => response.json())
+            .then(data => {
+                let tabla = document.getElementById("tablaUsuarios");
+                tabla.innerHTML = "";
+
+                data
+                    .filter(u => u.idUser >= 2)
+                    .sort((a, b) => a.idUser - b.idUser)
+                    .forEach(usuario => {
+                        let fila = `
+                            <tr>
+                                <td>${usuario.idUser}</td>
+                                <td>${usuario.nameUser}</td>
+                                <td>${usuario.ageUser}</td>
+                                <td>${usuario.matriculaUser}</td>
+                                <td>${usuario.emailUser}</td>
+                                <td>${usuario.passwordUser}</td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm" onclick="abrirModalEditar(${usuario.idUser}, '${usuario.nameUser}', '${usuario.ageUser}', '${usuario.matriculaUser}', '${usuario.emailUser}', '${usuario.passwordUser}')">Actualizar</button>
+                                    <button class="btn btn-danger btn-sm" onclick="eliminarUsuario(${usuario.idUser})">Eliminar</button>
+                                </td>
+                            </tr>
+                        `;
+                        tabla.innerHTML += fila;
+                    });
+            })
+            .catch(error => console.error(error));
+    }
+
+    function abrirModalEditar(id, name, age, matricula, email, password) {
+        document.getElementById("editIdUser").value = id;
+        document.getElementById("editNameUser").value = name;
+        document.getElementById("editAgeUser").value = age;
+        document.getElementById("editMatriculaUser").value = matricula;
+        document.getElementById("editEmailUser").value = email;
+        document.getElementById("editPasswordUser").value = password;
+        modalEditar.show();
+    }
+
+    document.getElementById("formEditar").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        let usuarioActualizado = {
+            idUser: parseInt(document.getElementById("editIdUser").value),
+            nameUser: document.getElementById("editNameUser").value,
+            ageUser: document.getElementById("editAgeUser").value,
+            matriculaUser: document.getElementById("editMatriculaUser").value,
+            emailUser: document.getElementById("editEmailUser").value,
+            passwordUser: document.getElementById("editPasswordUser").value
+        };
+
+        fetch(apiUpdate, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(usuarioActualizado)
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Usuario actualizado");
+                modalEditar.hide();
+                cargarUsuarios();
+            } else {
+                alert("Error al actualizar usuario");
+            }
+        })
+        .catch(error => console.error(error));
+    });
+
+    function eliminarUsuario(id) {
+        if (confirm("¿Seguro que quieres eliminar este usuario?")) {
+            fetch(apiDelete + id, { method: "DELETE" })
+                .then(response => {
+                    if (response.ok) {
+                        alert("Usuario eliminado");
+                        cargarUsuarios();
+                    } else {
+                        alert("Error al eliminar usuario");
+                    }
+                })
+                .catch(error => console.error(error));
+        }
+    }
+
+    window.onload = cargarUsuarios;
+</script>
+
+</body>
+</html>

@@ -48,7 +48,7 @@ namespace Presentacion.Controllers
                 return BadRequest(new { Error = ex.Message});
             }
         }
-        [HttpPut]
+        [HttpPut("Update")]
         public IActionResult PutUsuarios([FromBody]UsuarioDTO model) 
         {
             try
@@ -61,7 +61,7 @@ namespace Presentacion.Controllers
                 return BadRequest(new {Error = ex.Message});
             }
         }
-        [HttpDelete]
+        [HttpDelete("Delete")]
         public IActionResult DeleteUsuarioByID(int ID) 
         {
             try

@@ -22,6 +22,18 @@ namespace Presentacion
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+            });
+
+
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             
 
@@ -50,6 +62,7 @@ namespace Presentacion
 
             app.UseAuthorization();
 
+            app.UseCors("AllowAll");
 
             app.MapControllers();
 

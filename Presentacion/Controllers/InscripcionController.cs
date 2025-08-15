@@ -49,7 +49,7 @@ namespace Presentacion.Controllers
                 return BadRequest( new {Error = ex.Message});
             }
         }
-        [HttpDelete]
+        [HttpDelete("Delete")]
         public IActionResult DeleteInscipcionesByID(int ID)
         {
             try
@@ -63,7 +63,7 @@ namespace Presentacion.Controllers
             }
 
         }
-        [HttpPut]
+        [HttpPut("Put")]
         public IActionResult PutInscripciones([FromBody] InscripcionesDTO model)
         {
             try
