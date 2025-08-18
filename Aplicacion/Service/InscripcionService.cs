@@ -40,17 +40,18 @@ namespace Aplicacion.Service
 
         public void PostRegistros(InscripcionesDTO model)
         {
-
+            DateTime fecha = DateTime.Now;
             var models = _mapper.Map<Inscripciones>(model);
             _inscripcionRepositorio.EjecutarSPAgregarInscripcion(models);
-            _correos.EnviarCorreo(models.EmailUser, "Te agregaste a un curso en CursosGenerales", $"Estimado/a usuario usted se ha regustrado en el curso de codigo: {models.IDCurso}");
+            _correos.EnviarCorreo(models.EmailUser, "Te agregaste a un curso en CursosGenerales", $"Estimado/a usuario usted se ha registrado en un curso a las {fecha} y el codigo de tu curso es el: {models.IDCurso}");
         }
 
         public void PutRegistros(InscripcionesDTO model)
         {
+            DateTime fecha = DateTime.Now;
             var models = _mapper.Map<Inscripciones>(model);
             _repository.PutRegistros(models);
-            _correos.EnviarCorreo(model.EmailUser, "Datos actualizados en CursosGenerados", $" Algunos de sus Datos Han sido Actualizados");
+            _correos.EnviarCorreo(model.EmailUser, "Datos actualizados en CursosGenerados", $" Algunos de sus Datos Han sido Actualizados a las {fecha}");
         }
     }
 }

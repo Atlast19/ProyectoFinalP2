@@ -41,16 +41,18 @@ namespace Aplicacion.Service
 
         public void PostRegistros(UsuarioDTO model)
         {
+            DateTime fecha = DateTime.Now;
             var modelo = _mapper.Map<Usuarios>(model);
             _repository.PostRegistros(modelo);
-            _correos.EnviarCorreo(model.EmailUser, "Bienvenido/a CursosGenerales", $"Hola {model.NameUser} Te has Registrado/a en nuestra plataforma web");
+            _correos.EnviarCorreo(model.EmailUser, "Bienvenido/a CursosGenerales", $"Hola {model.NameUser} Te has Registrado/a en nuestra plataforma web a las {fecha}");
         }
 
         public void PutRegistros(UsuarioDTO model)
         {
+            DateTime fecha = DateTime.Now;
             var modelo = _mapper.Map<Usuarios>(model);
             _repository.PutRegistros(modelo);
-            _correos.EnviarCorreo(model.EmailUser, "Datos actualizados en CursosGenerados", $"Hola {model.NameUser} Algunos de sus Datos Han sido Actualizados");
+            _correos.EnviarCorreo(model.EmailUser, "Datos actualizados en CursosGenerados", $"Hola {model.NameUser} Algunos de sus Datos Han sido Actualizados a las {fecha}");
         }
     }
 }
