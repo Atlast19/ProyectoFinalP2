@@ -50,6 +50,7 @@ namespace Aplicacion.Service
         {
             var models = _mapper.Map<Inscripciones>(model);
             _repository.PutRegistros(models);
+            _correos.EnviarCorreo(model.EmailUser, "Datos actualizados en CursosGenerados", $" Algunos de sus Datos Han sido Actualizados");
         }
     }
 }

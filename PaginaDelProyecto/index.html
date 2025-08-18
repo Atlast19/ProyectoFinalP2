@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curso Generales</title>
+    <title>Cursos Generales</title>
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -76,10 +76,15 @@
         fetch(apiGet)
         .then(response => response.json())
         .then(data => {
+            // Buscar usuario que coincida
             let usuario = data.find(u => u.nameUser === nameUser && u.passwordUser === passwordUser);
 
             if (usuario) {
-                if (nameUser === "Admin" && passwordUser === "Admin") {
+                // 🔹 Guardar usuario activo en sessionStorage
+                sessionStorage.setItem("usuarioActivo", JSON.stringify(usuario));
+
+                // 🔹 Identificar si es admin
+                if (usuario.idUser === 1) {
                     window.location.href = "admin.html";
                 } else {
                     window.location.href = "usuario.html";
@@ -98,7 +103,7 @@
         let nuevoUsuario = {
             idUser: 0,
             nameUser: document.getElementById("regName").value.trim(),
-            birthdateUser: fechaOriginal,
+            AgeUser: fechaOriginal,
             matriculaUser: document.getElementById("regMatricula").value.trim(),
             emailUser: document.getElementById("regEmail").value.trim(),
             passwordUser: document.getElementById("regPass").value.trim()
@@ -109,15 +114,24 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(nuevoUsuario)
         })
-        .then(response => {
-            if (response.ok) {
-                alert("Usuario registrado con éxito");
-                limpiarCamposRegistro();
-            } else {
-                alert("Error al registrar el usuario");
-            }
+        .then(response => response.json()) // 🔹 Esperar al JSON devuelto por la API
+        .then(usuarioCreado => {
+            if (!usuarioCreado.idUser) throw new Error("No se devolvió ID del usuario");
+
+            // 🔹 Guardar usuario registrado en sessionStorage
+            sessionStorage.setItem("usuarioActivo", JSON.stringify(usuarioCreado));
+
+            alert("Usuario registrado con éxito");
+
+            // 🔹 Redirigir al panel de usuario
+            window.location.href = "usuario.html";
+
+            limpiarCamposRegistro();
         })
-        .catch(error => console.log(error));
+        .catch(error => {
+            console.error("Error al registrar usuario:", error);
+            alert("Error al registrar el usuario");
+        });
     }
 
     // Limpiar campos del formulario de registro
