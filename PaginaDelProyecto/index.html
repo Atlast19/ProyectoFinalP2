@@ -32,7 +32,7 @@
                     <div class="mb-3">
                         <input type="password" class="form-control" id="loginPass" placeholder="Contraseña">
                     </div>
-                    <button class="btn btn-primary w-100" onclick="login()">Ingresar</button>
+                    <button class="btn btn-primary w-100" id="Ingresar" onclick="login()">Ingresar</button>
                 </div>
 
                 <!-- REGISTRO -->
@@ -131,6 +131,7 @@
         .catch(error => {
             console.error("Error al registrar usuario:", error);
             alert("Error al registrar el usuario");
+            limpiarCamposRegistro();
         });
     }
 

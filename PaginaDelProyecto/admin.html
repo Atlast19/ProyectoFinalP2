@@ -19,10 +19,10 @@
     <a class="navbar-brand fw-bold text-primary" href="#">Panel Admin</a>
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav me-auto">
-        <li class="nav-item"><a class="nav-link active" href="#" onclick="showSection(event,'usuarios')">Usuarios</a></li>
-        <li class="nav-item"><a class="nav-link" href="#" onclick="showSection(event,'cursos')">Cursos</a></li>
+        <li class="nav-item" ><a class="nav-link active"  href="#" onclick="showSection(event,'usuarios')" id="usuario">Usuarios</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" onclick="showSection(event,'cursos')" id="curso">Cursos</a></li>
        <li class="nav-item"><a class="nav-link" href="#" onclick="showSection(event,'inscripciones')">Inscripciones</a>
-        <li class="nav-item"><a class="nav-link text-warning" href="index.html">Salir</a>
+        <li class="nav-item"><a class="nav-link text-warning" href="index.html" id="salir">Salir</a>
       </ul>
     </div>
   </div>
@@ -40,7 +40,7 @@
     <input type="hidden" id="idInscripcionEdit" value="0">
     <div class="row g-3">
       <div class="col-md-3"><input type="number" id="idCurso" class="form-control" placeholder="ID Curso"></div>
-      <div class="col-md-3"><input type="number" id="idUser" class="form-control" placeholder="ID Usuario"></div>
+      <div class="col-md-3"><input type="number" id="idUser" class="form-control" placeholder="ID Usuario" disabled></div>
       <div class="col-md-3"><input type="email" id="emailUserIns" class="form-control" placeholder="Email Usuario"></div>
       <div class="col-md-3 d-grid gap-2">
         <button type="button" id="btnInscripcion" class="btn btn-primary">Actualizar</button>
@@ -118,7 +118,7 @@
 
       <div class="col-md-4"><input type="number" id="espaciosDisponibles" class="form-control" placeholder="Espacios Disponibles"></div>
       <div class="col-md-4">
-        <select id="estado" class="form-select">
+        <select id="estado" class="form-select" disabled>
           <option value="true">Activo</option>
         </select>
       </div>
